@@ -7,17 +7,17 @@ class IntroductionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Responsiveness
-    var Height =
+    double Height =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
-    var Width = MediaQuery.of(context).size.width;
+    double Width = MediaQuery.of(context).size.width;
     //initialize fields
     List<Image> images = [
       const Image(image: AssetImage('assets/images/introduction1.png')),
-      const Image(image: AssetImage('assets/images/introduction2.jpg')),
+      const Image(image: AssetImage('assets/images/introduction2.png')),
       const Image(image: AssetImage('assets/images/introduction1.png')),
     ];
     var texts = [
-      'don;',
+      "Don't forget Popcorn",
       'Watch the top rated movies series and others',
       'Enjoy with us',
     ];
