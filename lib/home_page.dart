@@ -1,4 +1,8 @@
+import 'package:cinema4u/api_connection.dart';
+import 'package:cinema4u/models/title_data.dart';
+import 'package:cinema4u/models/top_movies.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,19 +12,31 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<TopMovies> movies = [];
+
+  @override
+  void initState() {
+    getMovies();
+
+    super.initState();
+  }
+
+  void getMovies() async {
+    movies = await getTopMovies();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cinema 4u'),
+        title: Text('Cinema4u'),
         centerTitle: true,
       ),
       body: ListView(
         children: [
           // Search Section
-          Container(
-
-          ),
+          Container(),
           //   Movies Section
           Card(
             elevation: 3,

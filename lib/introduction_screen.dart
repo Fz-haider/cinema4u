@@ -47,9 +47,7 @@ class IntroductionScreen extends StatelessWidget {
                                   dotColor: Colors.grey.shade300,
                                 ),
                                 onDotClicked: (index) {
-                                  pageController.jumpToPage(
-                                    index,
-                                  );
+                                  pageController.jumpToPage(index);
                                 }),
                           )
                         : Container(),
