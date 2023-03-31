@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'models/top_movies.dart';
+import 'models/movies/top_movies.dart';
 
 void main() async {
   var movies = await getTopMovies();
