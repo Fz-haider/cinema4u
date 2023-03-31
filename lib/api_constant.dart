@@ -1,4 +1,4 @@
-class Constant {
+class ApiConstant {
   String url = '';
   String key = '';
 }
