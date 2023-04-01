@@ -14,7 +14,21 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  late TabController tabController;
+
+  @override
+  void initState() {
+    tabController = TabController(length: 4, vsync: this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double Height =
@@ -23,10 +37,10 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cinema4u'),
+        title: const Text('Cinema4u'),
         centerTitle: true,
       ),
-      body: ListView(
+      body: Column(
         children: [
           FutureBuilder(
               future: getTopMovies(),
@@ -41,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                 } else {
                   return CarouselSlider.builder(
                     options: CarouselOptions(
-                      height: Height * 0.56,
+                      height: Height * 0.4,
                       autoPlay: false,
                       autoPlayAnimationDuration:
                           const Duration(milliseconds: 600),
@@ -53,8 +67,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            height: Height * 0.46,
+                          Expanded(
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
@@ -87,40 +100,82 @@ class _HomePageState extends State<HomePage> {
                                             snapShot.data![index].image),
                                         fit: BoxFit.cover,
                                       ),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(60)),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(60)),
                                     ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          Container(
-                            height: Height * 0.1,
-                            child: Text(snapShot.data![index].title),
+                          SizedBox(
+                            height: Height * 0.01,
                           ),
+                          FittedBox(
+                              fit: BoxFit.fitHeight,
+                              child: Container(
+                                width: Width * 0.8,
+                                child: Text(
+                                  textAlign: TextAlign.center,
+                                  snapShot.data![index].title,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 20,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: Colors.pinkAccent,
+                                  ),
+                                  overflow: TextOverflow.visible,
+                                  softWrap: true,
+                                ),
+                              )),
                         ],
                       );
                     }),
                   );
                 }
               }),
-          Row(
-            children: [
-              TextButton(
-                onPressed: () {},
-                child: Text('Movie'),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: Text('Tv Series'),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: Text('Soon'),
-              ),
-            ],
-          )
+          SizedBox(
+            height: Height * 0.01,
+          ),
+          Container(
+            width: Width * 0.95,
+            height: Height * 0.1,
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(25),
+            ),
+            child: TabBar(
+                controller: tabController,
+                indicator: BoxDecoration(
+                  color: Colors.pinkAccent,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                tabs: const [
+                  Tab(
+                    child: Text(
+                      'Asian Movies',
+                    ),
+                  ),
+                  Tab(text: ('Box Office')),
+                  Tab(text: ('Tv Series')),
+                  Tab(text: ('Soon')),
+                ]),
+          ),
+          SizedBox(
+            height: Height * 0.01,
+          ),
+          Expanded(
+            child: Container(
+              color: Colors.blueAccent,
+              width: Width * 1,
+              child: TabBarView(controller: tabController, children: const [
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+              ]),
+            ),
+          ),
         ],
       ),
     );

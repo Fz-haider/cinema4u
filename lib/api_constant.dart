@@ -1,4 +1,4 @@
 class ApiConstant {
-  String url = '';
-  String key = '';
+  static String url = 'https://imdb-api.com/en/API';
+  static String key = 'k_pxlxojmc';
 }
