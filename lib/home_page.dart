@@ -168,8 +168,101 @@ class _HomePageState extends State<HomePage>
             child: Container(
               color: Colors.blueAccent,
               width: Width * 1,
-              child: TabBarView(controller: tabController, children: const [
-                Text('hello'),
+              child: TabBarView(controller: tabController, children: [
+                FutureBuilder(
+                    future: getTopMovies(),
+                    builder: (context, snapShot) {
+                      if (snapShot.connectionState == ConnectionState.none) {
+                        return Container(
+                          child: const Text('NO Existing Data!'),
+                        );
+                      } else if (snapShot.connectionState ==
+                          ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else {
+                        return CarouselSlider.builder(
+                          options: CarouselOptions(
+                            height: Height * 0.4,
+                            autoPlay: false,
+                            autoPlayAnimationDuration:
+                                const Duration(milliseconds: 600),
+                            viewportFraction: 1,
+                          ),
+                          itemCount: snapShot.data!.length,
+                          itemBuilder: ((context, index, realIndex) {
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      ClipRect(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                  snapShot.data![index].image),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          child: BackdropFilter(
+                                            filter: ImageFilter.blur(
+                                                sigmaX: 5.0, sigmaY: 5.0),
+                                            child: Container(
+                                              color:
+                                                  Colors.black.withOpacity(0.0),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      ClipRect(
+                                        child: Container(
+                                          width: Width * 0.7,
+                                          height: Height * 0.4,
+                                          alignment: Alignment.bottomCenter,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                  snapShot.data![index].image),
+                                              fit: BoxFit.cover,
+                                            ),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(60)),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: Height * 0.01,
+                                ),
+                                FittedBox(
+                                    fit: BoxFit.fitHeight,
+                                    child: Container(
+                                      width: Width * 0.8,
+                                      child: Text(
+                                        textAlign: TextAlign.center,
+                                        snapShot.data![index].title,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                          decoration: TextDecoration.underline,
+                                          decorationColor: Colors.pinkAccent,
+                                        ),
+                                        overflow: TextOverflow.visible,
+                                        softWrap: true,
+                                      ),
+                                    )),
+                              ],
+                            );
+                          }),
+                        );
+                      }
+                    }),
                 Text('hello'),
                 Text('hello'),
                 Text('hello'),
