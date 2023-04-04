@@ -1,4 +1,3 @@
-import 'package:cinema4u/api_connection.dart' as api;
 import 'package:flutter/foundation.dart';
 
 void main(List<String> args) {

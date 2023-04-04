@@ -31,11 +31,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  google_fonts: ^4.0.3
   smooth_page_indicator: ^1.0.1
   http: ^0.13.5
-
+  cached_network_image: ^3.2.3
   carousel_slider: ^4.2.1
-  
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
