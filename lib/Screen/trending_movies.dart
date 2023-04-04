@@ -7,8 +7,8 @@ import 'package:cinema4u/models/tmdb/trending_movies.dart';
 import 'package:cinema4u/api/api_connection.dart';
 import 'package:flutter/material.dart';
 
-class ImageSlider extends StatelessWidget {
-  const ImageSlider({super.key});
+class TrendingMovies extends StatelessWidget {
+  const TrendingMovies({super.key});
 
   @override
   Widget build(BuildContext context) {

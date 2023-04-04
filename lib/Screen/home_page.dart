@@ -1,8 +1,6 @@
 import 'dart:ui';
-import 'package:cinema4u/Screen/image_slider.dart';
-import 'package:cinema4u/models/title_data.dart';
-import 'package:cinema4u/models/movies/top_movies.dart';
-import 'package:cinema4u/Screen/tab_screens/asian_movies.dart';
+import 'package:cinema4u/Screen/trending_movies.dart';
+import 'package:cinema4u/Screen/tab_screens/nowplaying_movies.dart';
 import 'package:cinema4u/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -53,7 +51,7 @@ class _HomePageState extends State<HomePage>
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ImageSlider(),
+          TrendingMovies(),
           Container(
             width: Width * 0.95,
             height: Height * 0.1,
@@ -81,7 +79,7 @@ class _HomePageState extends State<HomePage>
           Container(
             height: Height * 0.38,
             child: TabBarView(controller: tabController, children: const [
-              AsianMovies(),
+              NowPlayingMovies(),
               Text('hello'),
               Text('hello'),
               Text('hello'),
