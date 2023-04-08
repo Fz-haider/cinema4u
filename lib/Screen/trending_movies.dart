@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cinema4u/api/api_constant.dart';
-import 'package:cinema4u/models/tmdb/trending_movies.dart';
+
 import 'package:cinema4u/api/api_connection.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +20,7 @@ class TrendingMovies extends StatelessWidget {
       child: FutureBuilder(
           future: trendingMovies(),
           builder: (context, snapShot) {
-            var data = snapShot.data!;
+            var data = snapShot.data;
             if (snapShot.hasError) {
               return Container(
                 child: Text('😢${snapShot.error}'),
@@ -39,7 +39,7 @@ class TrendingMovies extends StatelessWidget {
                     aspectRatio: 16 / 9,
                     enlargeCenterPage: true,
                   ),
-                  itemCount: data.length,
+                  itemCount: data!.length,
                   itemBuilder: (context, index, realIndex) {
                     return Stack(alignment: Alignment.bottomLeft, children: [
                       ClipRRect(
@@ -65,7 +65,7 @@ class TrendingMovies extends StatelessWidget {
                           child: Text(data[index].title,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 20,
+                                fontSize: Width > 700 ? 16 : 12,
                               )))
                     ]);
                   });

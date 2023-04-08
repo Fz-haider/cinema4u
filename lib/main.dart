@@ -1,4 +1,5 @@
 import 'package:cinema4u/Screen/home_page.dart';
+import 'package:cinema4u/Screen/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cinema4u/Screen/onBoarding_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowMaterialGrid: false,
       title: 'Cinema4u',
       theme: ThemeData(
         fontFamily: GoogleFonts.openSans().fontFamily,
@@ -20,6 +22,7 @@ class MyApp extends StatelessWidget {
       home: OnboardingScreen(),
       routes: {
         'HomePage': (context) => const HomePage(),
+        'SearchScreen': (context) => const SearchScreen(),
       },
       debugShowCheckedModeBanner: false,
     );

@@ -77,6 +77,7 @@ class OnboardingScreen extends StatelessWidget {
                                 fontSize:
                                     ((Height) > 640 && (Width) > 420) ? 16 : 14,
                                 fontWeight: FontWeight.bold,
+                                color: AppColor.snow,
                               ),
                             ),
                           )

@@ -1,51 +1,54 @@
-class NowPlayingMovies {
+class KnownFor {
   final bool adult;
-  final String backdropPath;
-  final List<int> genreIds;
+  final String? backdropPath;
   final int id;
+  final String title;
   final String originalLanguage;
   final String originalTitle;
   final String overview;
+  final String? posterPath;
+  final String mediaType;
+  final List<int> genreIds;
   final double popularity;
-  final String posterPath;
   final String releaseDate;
-  final String title;
   final bool video;
-  final double voteAverage;
-  final double voteCount;
+  final int voteAverage;
+  final int voteCount;
 
-  NowPlayingMovies(
+  KnownFor(
       {required this.adult,
-      required this.backdropPath,
-      required this.genreIds,
+      this.backdropPath,
       required this.id,
+      required this.title,
       required this.originalLanguage,
       required this.originalTitle,
       required this.overview,
+      this.posterPath,
+      required this.mediaType,
+      required this.genreIds,
       required this.popularity,
-      required this.posterPath,
       required this.releaseDate,
-      required this.title,
       required this.video,
       required this.voteAverage,
       required this.voteCount});
 
-  factory NowPlayingMovies.fromJson(Map<String, dynamic> json) {
-    return NowPlayingMovies(
+  factory KnownFor.fromJson(Map<String, dynamic> json) {
+    return KnownFor(
       adult: json['adult'],
       backdropPath: json['backdrop_path'],
-      genreIds: json['genre_ids'].cast<int>(),
       id: json['id'],
+      title: json['title'],
       originalLanguage: json['original_language'],
       originalTitle: json['original_title'],
       overview: json['overview'],
-      popularity: json['popularity'],
       posterPath: json['poster_path'],
+      mediaType: json['media_type'],
+      genreIds: json['genre_ids'].map((e) => int.parse(e)).toList(),
+      popularity: json['popularity'],
       releaseDate: json['release_date'],
-      title: json['title'],
       video: json['video'],
-      voteAverage: json['vote_average'].toDouble(),
-      voteCount: json['vote_count'].toDouble(),
+      voteAverage: json['vote_average'],
+      voteCount: json['vote_count'],
     );
   }
 }
