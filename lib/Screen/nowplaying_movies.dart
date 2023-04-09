@@ -43,7 +43,7 @@ class NowPlayingMovies extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       child: CachedNetworkImage(
                         imageUrl: ApiConstant.TMDB_BASE_IMAGE_URL +
-                            data![index].posterPath,
+                            data[index].posterPath,
                         fit: BoxFit.cover,
                         placeholder: (context, url) =>
                             CircularProgressIndicator(),

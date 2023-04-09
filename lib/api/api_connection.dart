@@ -66,17 +66,10 @@ Future<List<GenresMovies>> genresMovies() async {
   }
 }
 
-void main() async {
-  var text = 'batman';
-  var data = await multiSearch(text);
-  for (var e in data) {
-    print(e.knownFor);
-  }
-}
-
 Future<List<MultiSearch>> multiSearch(String search) async {
+  String query = await search;
   var url = Uri.parse(
-      '${ApiConstant.TMDB_API_BASE_URL}/search/multi${ApiConstant.TMDB_API_KEY}&query=$search&page=1&include_adult=false');
+      '${ApiConstant.TMDB_API_BASE_URL}/search/multi${ApiConstant.TMDB_API_KEY}&query=$query&page=1&include_adult=false');
   var response = await http.get(url);
   if (response.statusCode == 200) {
     var jsonData = jsonDecode(response.body);
