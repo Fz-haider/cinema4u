@@ -30,7 +30,7 @@ class _GenresMoviesState extends State<GenresMovies> {
               return const Center(child: CircularProgressIndicator());
             } else {
               return ListView.separated(
-                  physics: AlwaysScrollableScrollPhysics(),
+                  physics: const AlwaysScrollableScrollPhysics(),
                   separatorBuilder: (context, index) => const VerticalDivider(
                         color: Colors.transparent,
                         width: 10,
