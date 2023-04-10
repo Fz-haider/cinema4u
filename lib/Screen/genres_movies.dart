@@ -29,41 +29,39 @@ class _GenresMoviesState extends State<GenresMovies> {
             } else if (snapShot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else {
-              return Expanded(
-                child: ListView.separated(
-                    physics: AlwaysScrollableScrollPhysics(),
-                    separatorBuilder: (context, index) => const VerticalDivider(
-                          color: Colors.transparent,
-                          width: 10,
-                        ),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: data!.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: AppColor.vulcan,
-                              border:
-                                  Border.all(width: 1.5, color: AppColor.snow),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(50)),
-                            ),
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 4),
-                            child: Text(
-                              data[index].name,
-                              style: TextStyle(
-                                color: AppColor.snow,
-                                fontSize: 14,
-                              ),
+              return ListView.separated(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  separatorBuilder: (context, index) => const VerticalDivider(
+                        color: Colors.transparent,
+                        width: 10,
+                      ),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: data!.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: AppColor.vulcan,
+                            border:
+                                Border.all(width: 1.5, color: AppColor.snow),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(50)),
+                          ),
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 4),
+                          child: Text(
+                            data[index].name,
+                            style: TextStyle(
+                              color: AppColor.snow,
+                              fontSize: 14,
                             ),
                           ),
-                        ],
-                      );
-                    }),
-              );
+                        ),
+                      ],
+                    );
+                  });
             }
           }),
     );
