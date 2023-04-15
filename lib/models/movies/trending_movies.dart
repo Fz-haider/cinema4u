@@ -1,16 +1,16 @@
 class TrendingMovies {
   final bool adult;
   final String backdropPath;
+  final List<int> genreIds;
   final int id;
-  final String title;
   final String originalLanguage;
   final String originalTitle;
   final String overview;
   final String posterPath;
   final String mediaType;
-  final List<int> genreIds;
   final double popularity;
   final String releaseDate;
+  final String title;
   final bool video;
   final double voteAverage;
   final int voteCount;

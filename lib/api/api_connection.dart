@@ -1,3 +1,5 @@
+import 'package:cinema4u/models/movies/movie_detail.dart';
+import 'package:cinema4u/models/movies/movie_video.dart';
 import 'package:cinema4u/models/movies/trending_movies.dart';
 import 'package:cinema4u/api/api_constant.dart';
 import 'package:cinema4u/models/Genres/genres_movies.dart';
@@ -27,9 +29,8 @@ Future<List<TrendingMovies>> trendingMovies() async {
 }
 
 Future<List<NowPlayingMovies>> nowplayingMovies() async {
-  var url = Uri.parse(ApiConstant.TMDB_API_BASE_URL +
-      '/movie/now_playing' +
-      ApiConstant.TMDB_API_KEY);
+  var url = Uri.parse(
+      '${ApiConstant.TMDB_API_BASE_URL}/movie/now_playing${ApiConstant.TMDB_API_KEY}');
   var response = await http.get(url);
 
   if (response.statusCode == 200) {
@@ -47,9 +48,8 @@ Future<List<NowPlayingMovies>> nowplayingMovies() async {
 }
 
 Future<List<GenresMovies>> genresMovies() async {
-  var url = Uri.parse(ApiConstant.TMDB_API_BASE_URL +
-      '/genre/movie/list' +
-      ApiConstant.TMDB_API_KEY);
+  var url = Uri.parse(
+      '${ApiConstant.TMDB_API_BASE_URL}/genre/movie/list${ApiConstant.TMDB_API_KEY}');
   var response = await http.get(url);
 
   if (response.statusCode == 200) {
@@ -66,11 +66,6 @@ Future<List<GenresMovies>> genresMovies() async {
   }
 }
 
-main() async {
-  var result = await multiSearch('batman');
-  print(result[0].name);
-}
-
 Future<List<MultiSearch>> multiSearch(String query) async {
   var url = Uri.parse(
       '${ApiConstant.TMDB_API_BASE_URL}/search/multi${ApiConstant.TMDB_API_KEY}&query=$query&page=1&include_adult=false');
@@ -83,6 +78,44 @@ Future<List<MultiSearch>> multiSearch(String query) async {
     for (var item in data) {
       MultiSearch multiSearch = MultiSearch.fromJson(item);
       result.add(multiSearch);
+    }
+    return result;
+  } else {
+    throw Exception('no response');
+  }
+}
+
+Future<void> main(List<String> args) async {
+  var res = await movieDetail(594767);
+  print(res.releaseDate);
+}
+
+Future<MovieDetail> movieDetail(int id) async {
+  var url = Uri.parse(
+      '${ApiConstant.TMDB_API_BASE_URL}/movie/$id${ApiConstant.TMDB_API_KEY}&language=en-US');
+  var response = await http.get(url);
+  if (response.statusCode == 200) {
+    var jsonData = jsonDecode(response.body);
+
+    MovieDetail movieDetail = MovieDetail.fromJson(jsonData);
+
+    return movieDetail;
+  } else {
+    throw Exception('no response');
+  }
+}
+
+Future<List<MovieVideo>> youtubeTrailer(int id) async {
+  var url = Uri.parse(
+      '${ApiConstant.TMDB_API_BASE_URL}/movie/$id/videos${ApiConstant.TMDB_API_KEY}&language=en-US');
+  var response = await http.get(url);
+  if (response.statusCode == 200) {
+    var jsonData = jsonDecode(response.body);
+    var data = await jsonData['results'];
+    List<MovieVideo> result = [];
+    for (var item in data) {
+      MovieVideo movieVideo = MovieVideo.fromJson(item);
+      result.add(movieVideo);
     }
     return result;
   } else {

@@ -34,7 +34,7 @@ class NowPlayingMovies {
     return NowPlayingMovies(
       adult: json['adult'],
       backdropPath: json['backdrop_path'],
-      genreIds: json['genre_ids'].cast<int>(),
+      genreIds: List<int>.from(json['genre_ids'].map((e) => e)),
       id: json['id'],
       originalLanguage: json['original_language'],
       originalTitle: json['original_title'],

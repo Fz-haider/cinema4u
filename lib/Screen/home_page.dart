@@ -1,13 +1,10 @@
-import 'dart:ui';
+
 
 import 'package:cinema4u/Screen/genres_movies.dart';
 import 'package:cinema4u/Screen/trending_movies.dart';
 import 'package:cinema4u/Screen/nowplaying_movies.dart';
-import 'package:cinema4u/api/api_connection.dart';
 import 'package:cinema4u/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

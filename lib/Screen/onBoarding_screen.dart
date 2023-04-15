@@ -3,7 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatelessWidget {
-  const OnboardingScreen({super.key});
+  OnboardingScreen({super.key});
+
+  List<Image> images = [
+    const Image(image: AssetImage('assets/images/introduction1.png')),
+    const Image(image: AssetImage('assets/images/introduction2.png')),
+    const Image(image: AssetImage('assets/images/introduction3.png')),
+  ];
+  var texts = [
+    "Search for your Movie",
+    'Get Every details on it',
+    'Enjoy with us',
+  ];
+
+  var animationDuration = 500; // in millis
 
   @override
   Widget build(BuildContext context) {
@@ -11,21 +24,8 @@ class OnboardingScreen extends StatelessWidget {
     double Height =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     double Width = MediaQuery.of(context).size.width;
-    //initialize fields
-    List<Image> images = [
-      const Image(image: AssetImage('assets/images/introduction1.png')),
-      const Image(image: AssetImage('assets/images/introduction2.png')),
-      const Image(image: AssetImage('assets/images/introduction1.png')),
-    ];
-    var texts = [
-      "Don't forget Popcorn",
-      'Watch the top rated movies series and others',
-      'Enjoy with us',
-    ];
-    //Controller  of the smooth page indicator
-    PageController pageController = PageController();
 
-    var animationDuration = 500; // in millis
+    PageController pageController = PageController();
 
     return SafeArea(
       child: Scaffold(
@@ -45,7 +45,7 @@ class OnboardingScreen extends StatelessWidget {
                                 controller: pageController,
                                 count: 3,
                                 effect: ExpandingDotsEffect(
-                                  activeDotColor: Colors.pinkAccent,
+                                  activeDotColor: AppColor.violet,
                                   dotColor: Colors.grey.shade300,
                                 ),
                                 onDotClicked: (index) {
@@ -86,6 +86,8 @@ class OnboardingScreen extends StatelessWidget {
                       height: Height > 300 ? Height * 0.1 : Height * 0.03,
                     ),
                     ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColor.violet),
                       icon: index < 2
                           ? const Icon(Icons.arrow_forward)
                           : const Icon(Icons.done),

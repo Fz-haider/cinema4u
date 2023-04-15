@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cinema4u/Screen/movie_detail.dart';
 import 'package:cinema4u/api/api_constant.dart';
 
 import 'package:cinema4u/api/api_connection.dart';
@@ -41,33 +42,42 @@ class TrendingMovies extends StatelessWidget {
                   ),
                   itemCount: data!.length,
                   itemBuilder: (context, index, realIndex) {
-                    return Stack(alignment: Alignment.bottomLeft, children: [
-                      ClipRRect(
-                        child: CachedNetworkImage(
-                          imageUrl: ApiConstant.TMDB_BASE_IMAGE_URL +
-                              data[index].posterPath,
-                          height: Height * 0.4,
-                          width: Width * 1,
-                          fit: BoxFit.fill,
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
+                    var movie = data[index];
+                    return GestureDetector(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              MovieDetail(movie: movie),
                         ),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
                       ),
-                      Padding(
-                          padding: const EdgeInsets.only(
-                            left: 12,
-                            bottom: 12,
+                      child: Stack(alignment: Alignment.bottomLeft, children: [
+                        ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                          child: CachedNetworkImage(
+                            imageUrl: ApiConstant.TMDB_BASE_IMAGE_URL +
+                                data[index].posterPath,
+                            height: Height * 0.4,
+                            width: Width * 1,
+                            fit: BoxFit.fill,
+                            placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator()),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
                           ),
-                          child: Text(data[index].title,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: Width > 700 ? 16 : 12,
-                              )))
-                    ]);
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.only(
+                              left: 12,
+                              bottom: 12,
+                            ),
+                            child: Text(data[index].title,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: Width > 700 ? 16 : 12,
+                                )))
+                      ]),
+                    );
                   });
             }
           }),
