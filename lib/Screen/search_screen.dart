@@ -81,146 +81,123 @@ class _SearchScreenState extends State<SearchScreen> {
                         child: CircularProgressIndicator(),
                       );
                     } else if (snapShot.hasData) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Movies ',
-                              style: TextStyle(color: AppColor.snow),
-                            ),
-                          ),
-                          Container(
-                            height: Height * 0.7,
-                            child: ListView.builder(
-                                itemCount: data!.length,
-                                itemBuilder: (context, index) {
-                                  var imageURL = '';
-                                  if (data[index].posterPath != null) {
-                                    imageURL = ApiConstant.TMDB_BASE_IMAGE_URL +
-                                        data[index].posterPath!;
-                                  } else {
-                                    imageURL =
-                                        "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png";
-                                  }
-                                  return Container(
-                                    height: Height * 0.2,
-                                    width: Width * 0.8,
-                                    margin: const EdgeInsets.symmetric(
-                                        vertical: 12),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          width: Width * 0.4,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: CachedNetworkImage(
-                                              imageUrl: imageURL,
-                                              fit: BoxFit.fill,
-                                              placeholder: (context, url) =>
-                                                  const Center(
-                                                      child:
-                                                          CircularProgressIndicator()),
-                                              errorWidget:
-                                                  (context, url, error) => Icon(
-                                                Icons.error,
-                                                color: AppColor.snow,
+                      return Expanded(
+                        child: ListView.builder(
+                            itemCount: data!.length,
+                            itemBuilder: (context, index) {
+                              var imageURL = '';
+                              if (data[index].posterPath != null) {
+                                imageURL = ApiConstant.TMDB_BASE_IMAGE_URL +
+                                    data[index].posterPath!;
+                              } else {
+                                imageURL =
+                                    "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png";
+                              }
+                              return Container(
+                                height: Height * 0.2,
+                                width: Width * 0.8,
+                                margin:
+                                    const EdgeInsets.symmetric(vertical: 12),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: Width * 0.4,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: CachedNetworkImage(
+                                          imageUrl: imageURL,
+                                          fit: BoxFit.fill,
+                                          placeholder: (context, url) =>
+                                              const Center(
+                                                  child:
+                                                      CircularProgressIndicator()),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(
+                                            Icons.error,
+                                            color: AppColor.snow,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Container(
+                                      width: Width * 0.4,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                              height: Height * 0.1,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    width: Width * 0.4,
+                                                    child: Text(
+                                                      data[index].title ??
+                                                          'No title',
+                                                      style: TextStyle(
+                                                        color: AppColor.snow,
+                                                      ),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      const Icon(
+                                                        Icons.star,
+                                                        color: Color.fromRGBO(
+                                                            255, 235, 59, 1),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 5,
+                                                      ),
+                                                      Text(
+                                                        data[index].voteAverage ==
+                                                                null
+                                                            ? ''
+                                                            : data[index]
+                                                                .voteAverage!
+                                                                .round()
+                                                                .toString(),
+                                                        style: TextStyle(
+                                                          color: AppColor.snow,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              )),
+                                          Center(
+                                            child: Container(
+                                              height: Height * 0.1,
+                                              child: Text(
+                                                data[index].overview ??
+                                                    'no overview',
+                                                style: TextStyle(
+                                                  color: AppColor.snow,
+                                                ),
+                                                maxLines: 3,
+                                                overflow: TextOverflow.ellipsis,
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Container(
-                                          width: Width * 0.4,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                  height: Height * 0.1,
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      Container(
-                                                        width: Width * 0.4,
-                                                        child: Text(
-                                                          data[index].title ??
-                                                              'No title',
-                                                          style: TextStyle(
-                                                            color:
-                                                                AppColor.snow,
-                                                          ),
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          const Icon(
-                                                            Icons.star,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    255,
-                                                                    235,
-                                                                    59,
-                                                                    1),
-                                                          ),
-                                                          const SizedBox(
-                                                            width: 5,
-                                                          ),
-                                                          Text(
-                                                            data[index].voteAverage ==
-                                                                    null
-                                                                ? ''
-                                                                : data[index]
-                                                                    .voteAverage!
-                                                                    .round()
-                                                                    .toString(),
-                                                            style: TextStyle(
-                                                              color:
-                                                                  AppColor.snow,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      )
-                                                    ],
-                                                  )),
-                                              Center(
-                                                child: Container(
-                                                  height: Height * 0.1,
-                                                  child: Text(
-                                                    data[index].overview ??
-                                                        'no overview',
-                                                    style: TextStyle(
-                                                      color: AppColor.snow,
-                                                    ),
-                                                    maxLines: 3,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  );
-                                }),
-                          ),
-                        ],
+                                  ],
+                                ),
+                              );
+                            }),
                       );
                     } else if (snapShot.hasData == false) {
                       return Container(

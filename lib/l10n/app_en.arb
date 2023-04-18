@@ -1,5 +1,6 @@
 {
     "next":"next",
     "done":"Done",
-    "language":"language"  
+    "language":"language", 
+    "changeLanguage":"change language"
 }

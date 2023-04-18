@@ -4,8 +4,8 @@ import 'package:cinema4u/api/api_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class NowPlayingMovies extends StatelessWidget {
-  const NowPlayingMovies({super.key});
+class PopularTv extends StatelessWidget {
+  const PopularTv({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class NowPlayingMovies extends StatelessWidget {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     double Width = MediaQuery.of(context).size.width;
     return FutureBuilder(
-        future: nowplayingMovies(),
+        future: popularTv(),
         builder: (context, snapShot) {
           var data = snapShot.data;
           if (snapShot.hasError) {
@@ -37,13 +37,20 @@ class NowPlayingMovies extends StatelessWidget {
                 ),
                 itemCount: data!.length,
                 itemBuilder: (context, index, realIndex) {
+                  var imageURL = '';
+                  if (data[index].posterPath != null) {
+                    imageURL = ApiConstant.TMDB_BASE_IMAGE_URL +
+                        data[index].posterPath!;
+                  } else {
+                    imageURL =
+                        "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png";
+                  }
                   return Container(
                     margin: EdgeInsets.only(right: Width > 600 ? 1 : 10),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: CachedNetworkImage(
-                        imageUrl: ApiConstant.TMDB_BASE_IMAGE_URL +
-                            data[index].posterPath,
+                        imageUrl: imageURL,
                         fit: BoxFit.cover,
                         placeholder: (context, url) =>
                             const Center(child: CircularProgressIndicator()),

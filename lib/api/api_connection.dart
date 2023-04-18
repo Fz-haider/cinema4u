@@ -5,13 +5,13 @@ import 'package:cinema4u/api/api_constant.dart';
 import 'package:cinema4u/models/Genres/genres_movies.dart';
 import 'package:cinema4u/models/movies/nowplaying_movies.dart';
 import 'package:cinema4u/models/multi_search/multi_search.dart';
+import 'package:cinema4u/models/tv/popular_tv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 Future<List<TrendingMovies>> trendingMovies() async {
-  var url = Uri.parse(ApiConstant.TMDB_API_BASE_URL +
-      '/trending/movie/day' +
-      ApiConstant.TMDB_API_KEY);
+  var url = Uri.parse(
+      '${ApiConstant.TMDB_API_BASE_URL}/trending/movie/day${ApiConstant.TMDB_API_KEY}');
   var response = await http.get(url);
 
   if (response.statusCode == 200) {
@@ -40,6 +40,25 @@ Future<List<NowPlayingMovies>> nowplayingMovies() async {
     for (var item in data) {
       NowPlayingMovies nowplayingMovies = NowPlayingMovies.fromJson(item);
       result.add(nowplayingMovies);
+    }
+    return result;
+  } else {
+    throw Exception('no response');
+  }
+}
+
+Future<List<PopularTv>> popularTv() async {
+  var url = Uri.parse(
+      '${ApiConstant.TMDB_API_BASE_URL}/tv/popular${ApiConstant.TMDB_API_KEY}');
+  var response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    var jsonData = jsonDecode(response.body);
+    var data = await jsonData['results'];
+    List<PopularTv> result = [];
+    for (var item in data) {
+      PopularTv popularTv = PopularTv.fromJson(item);
+      result.add(popularTv);
     }
     return result;
   } else {

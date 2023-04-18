@@ -1,4 +1,4 @@
-import 'package:cinema4u/Screen/home_page.dart';
+import 'package:cinema4u/Screen/home_screen.dart';
 import 'package:cinema4u/Screen/search_screen.dart';
 import 'package:cinema4u/language_constants.dart';
 import 'package:flutter/material.dart';

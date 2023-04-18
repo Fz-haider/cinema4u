@@ -1,5 +1,6 @@
 {
     "next":"التالي",
     "done":"تم", 
-    "language":"اللغة"
+    "language":"اللغة",
+    "changeLanguage":"تغير اللغة"
 }
