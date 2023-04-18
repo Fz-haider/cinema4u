@@ -1,6 +1,8 @@
+import 'package:cinema4u/language_constants.dart';
 import 'package:cinema4u/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OnboardingScreen extends StatelessWidget {
   OnboardingScreen({super.key});
@@ -91,8 +93,9 @@ class OnboardingScreen extends StatelessWidget {
                       icon: index < 2
                           ? const Icon(Icons.arrow_forward)
                           : const Icon(Icons.done),
-                      label:
-                          index < 2 ? const Text('Next') : const Text('Done!'),
+                      label: index < 2
+                          ? Text(translation(context).next)
+                          : Text(translation(context).done),
                       onPressed: () {
                         if (index < 2) {
                           pageController.nextPage(

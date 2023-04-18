@@ -36,6 +36,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  shared_preferences: ^2.1.0
   
 
 dev_dependencies:
@@ -47,9 +48,9 @@ dev_dependencies:
 
 
 flutter:
-
-  generate: true
   uses-material-design: true
+  generate: true
+  
 
   assets:
     - assets/images/
