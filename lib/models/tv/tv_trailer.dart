@@ -1,4 +1,4 @@
-class MovieVideo {
+class TvTrailer {
   final String iso6391;
   final String iso31661;
   final String name;
@@ -10,7 +10,7 @@ class MovieVideo {
   final String publishedAt;
   final String id;
 
-  MovieVideo(
+  TvTrailer(
       {required this.iso6391,
       required this.iso31661,
       required this.name,
@@ -22,8 +22,8 @@ class MovieVideo {
       required this.publishedAt,
       required this.id});
 
-  factory MovieVideo.fromJson(Map<String, dynamic> json) {
-    return MovieVideo(
+  factory TvTrailer.fromJson(Map<String, dynamic> json) {
+    return TvTrailer(
       iso6391: json['iso_639_1'],
       iso31661: json['iso_3166_1'],
       name: json['name'],

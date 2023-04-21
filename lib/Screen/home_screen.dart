@@ -1,11 +1,10 @@
 import 'package:cinema4u/Screen/genres_movies.dart';
-import 'package:cinema4u/Screen/popular_tv.dart';
-import 'package:cinema4u/Screen/trending_movies.dart';
-import 'package:cinema4u/Screen/nowplaying_movies.dart';
-import 'package:cinema4u/api/api_connection.dart';
+import 'package:cinema4u/Screen/tv_show/popular_tv.dart';
+import 'package:cinema4u/Screen/nowPlaying_movies/nowplaying_movies.dart';
 import 'package:cinema4u/language.dart';
 import 'package:cinema4u/language_constants.dart';
 import 'package:cinema4u/main.dart';
+import 'package:cinema4u/Screen/trending_movies/trending_movies.dart';
 import 'package:cinema4u/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -27,56 +26,49 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: AppColor.vulcan,
       drawer: Drawer(
-        backgroundColor: AppColor.vulcan.withOpacity(0.9),
-        elevation: 0,
-        child: ListView(
-          children: [
+          backgroundColor: AppColor.vulcan.withOpacity(0.9),
+          elevation: 0,
+          child: ListView(children: [
             ListTile(
-              leading: Icon(
-                Icons.language_outlined,
-                color: AppColor.snow,
-              ),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  DropdownButton(
-                    underline: const SizedBox(),
-                    hint: Text(
-                      translation(context).changeLanguage,
-                      style: TextStyle(
-                        color: AppColor.snow,
-                      ),
-                    ),
-                    onChanged: (Language? language) async {
-                      if (language != null) {
-                        Locale locale = await setLocale(language.languageCode);
-                        MyApp.setLocale(context, locale);
-                      }
-                    },
-                    items: Language.languageList()
-                        .map<DropdownMenuItem<Language>>(
-                          (e) => DropdownMenuItem(
-                            value: e,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  e.flag,
-                                  style: const TextStyle(fontSize: 30),
-                                ),
-                                Text(e.name),
-                              ],
-                            ),
+                leading: Icon(
+                  Icons.language_outlined,
+                  color: AppColor.snow,
+                ),
+                title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      DropdownButton(
+                        underline: const SizedBox(),
+                        hint: Text(
+                          translation(context).changeLanguage,
+                          style: TextStyle(
+                            color: AppColor.snow,
                           ),
-                        )
-                        .toList(),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+                        ),
+                        onChanged: (Language? language) async {
+                          if (language != null) {
+                            Locale locale =
+                                await setLocale(language.languageCode);
+                            MyApp.setLocale(context, locale);
+                          }
+                        },
+                        items: Language.languageList()
+                            .map<DropdownMenuItem<Language>>((e) =>
+                                DropdownMenuItem(
+                                    value: e,
+                                    child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text(e.flag,
+                                              style: const TextStyle(
+                                                  fontSize: 30)),
+                                          Text(e.name),
+                                        ])))
+                            .toList(),
+                      )
+                    ]))
+          ])),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,

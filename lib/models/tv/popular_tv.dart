@@ -1,5 +1,5 @@
 class PopularTv {
-  final String backdropPath;
+  final String? backdropPath;
   final String firstAirDate;
   final List<int> genreIds;
   final int id;
@@ -30,7 +30,7 @@ class PopularTv {
 
   factory PopularTv.fromJson(Map<String, dynamic> json) {
     return PopularTv(
-      backdropPath: json['backdrop_path'],
+      backdropPath: json['backdrop_path'].toString(),
       firstAirDate: json['first_air_date'],
       genreIds: json['genre_ids'].cast<int>(),
       id: json['id'],

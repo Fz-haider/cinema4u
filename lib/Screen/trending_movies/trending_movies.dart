@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cinema4u/Screen/movie_detail.dart';
+import 'package:cinema4u/Screen/trending_movies/trending_trailer.dart';
 import 'package:cinema4u/api/api_constant.dart';
 
 import 'package:cinema4u/api/api_connection.dart';
@@ -47,7 +47,7 @@ class TrendingMovies extends StatelessWidget {
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              MovieDetail(movie: movie),
+                              TrendingTrailer(movie: movie),
                         ),
                       ),
                       child: Stack(alignment: Alignment.bottomLeft, children: [

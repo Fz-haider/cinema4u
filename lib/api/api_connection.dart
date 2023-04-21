@@ -1,11 +1,14 @@
 import 'package:cinema4u/models/movies/movie_detail.dart';
-import 'package:cinema4u/models/movies/movie_video.dart';
+import 'package:cinema4u/models/movies/movie_trailer.dart';
+import 'package:cinema4u/models/movies/movie_trailer.dart';
 import 'package:cinema4u/models/movies/trending_movies.dart';
 import 'package:cinema4u/api/api_constant.dart';
 import 'package:cinema4u/models/Genres/genres_movies.dart';
 import 'package:cinema4u/models/movies/nowplaying_movies.dart';
 import 'package:cinema4u/models/multi_search/multi_search.dart';
 import 'package:cinema4u/models/tv/popular_tv.dart';
+import 'package:cinema4u/models/tv/tv_detail.dart';
+import 'package:cinema4u/models/tv/tv_trailer.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -124,17 +127,50 @@ Future<MovieDetail> movieDetail(int id) async {
   }
 }
 
-Future<List<MovieVideo>> youtubeTrailer(int id) async {
+Future<List<MovieTrailer>> movieTrailer(int id) async {
   var url = Uri.parse(
       '${ApiConstant.TMDB_API_BASE_URL}/movie/$id/videos${ApiConstant.TMDB_API_KEY}&language=en-US');
   var response = await http.get(url);
   if (response.statusCode == 200) {
     var jsonData = jsonDecode(response.body);
     var data = await jsonData['results'];
-    List<MovieVideo> result = [];
+    List<MovieTrailer> result = [];
     for (var item in data) {
-      MovieVideo movieVideo = MovieVideo.fromJson(item);
-      result.add(movieVideo);
+      MovieTrailer movieTrailer = MovieTrailer.fromJson(item);
+      result.add(movieTrailer);
+    }
+    return result;
+  } else {
+    throw Exception('no response');
+  }
+}
+
+Future<TvDetail> tvDetail(int id) async {
+  var url = Uri.parse(
+      '${ApiConstant.TMDB_API_BASE_URL}/tv/$id${ApiConstant.TMDB_API_KEY}&language=en-US');
+  var response = await http.get(url);
+  if (response.statusCode == 200) {
+    var jsonData = jsonDecode(response.body);
+
+    TvDetail tvDetail = TvDetail.fromJson(jsonData);
+
+    return tvDetail;
+  } else {
+    throw Exception('no response');
+  }
+}
+
+Future<List<TvTrailer>> tvTrailer(int id) async {
+  var url = Uri.parse(
+      '${ApiConstant.TMDB_API_BASE_URL}/tv/$id/videos${ApiConstant.TMDB_API_KEY}&language=en-US');
+  var response = await http.get(url);
+  if (response.statusCode == 200) {
+    var jsonData = jsonDecode(response.body);
+    var data = await jsonData['results'];
+    List<TvTrailer> result = [];
+    for (var item in data) {
+      TvTrailer tvTrailer = TvTrailer.fromJson(item);
+      result.add(tvTrailer);
     }
     return result;
   } else {
