@@ -2,5 +2,7 @@
     "next":"next",
     "done":"Done",
     "language":"language", 
-    "changeLanguage":"change language"
+    "changeLanguage":"change language",
+    "movie":"Movie",
+    "tvShow":"Tv Show"
 }

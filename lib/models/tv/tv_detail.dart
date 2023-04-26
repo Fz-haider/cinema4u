@@ -1,6 +1,6 @@
 class TvDetail {
   final bool adult;
-  final String backdropPath;
+  final String? backdropPath;
   final List<int> episodeRunTime;
   final String firstAirDate;
   final List<Genres>? genres;

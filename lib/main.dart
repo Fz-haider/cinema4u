@@ -1,8 +1,12 @@
 import 'package:cinema4u/Screen/home_screen.dart';
-import 'package:cinema4u/Screen/search_screen.dart';
+import 'package:cinema4u/Screen/search_screen/search_screen.dart';
 import 'package:cinema4u/language_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:cinema4u/Screen/onBoarding_screen.dart';
+
+import 'package:flutter_kurdish_localization/kurdish_material_localization_delegate.dart';
+import 'package:flutter_kurdish_localization/kurdish_widget_localization_delegate.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,8 +48,15 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         fontFamily: GoogleFonts.openSans().fontFamily,
       ),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        KurdishMaterialLocalizations.delegate,
+        KurdishWidgetLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: const [Locale('ar'), Locale('en'), Locale('ku')],
       locale: _locale,
       home: OnboardingScreen(),
       routes: {

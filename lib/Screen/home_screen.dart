@@ -1,4 +1,4 @@
-import 'package:cinema4u/Screen/genres_movies.dart';
+import 'package:cinema4u/Screen/genres/genres_movies.dart';
 import 'package:cinema4u/Screen/tv_show/popular_tv.dart';
 import 'package:cinema4u/Screen/nowPlaying_movies/nowplaying_movies.dart';
 import 'package:cinema4u/language.dart';
@@ -54,17 +54,7 @@ class _HomePageState extends State<HomePage> {
                         },
                         items: Language.languageList()
                             .map<DropdownMenuItem<Language>>((e) =>
-                                DropdownMenuItem(
-                                    value: e,
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text(e.flag,
-                                              style: const TextStyle(
-                                                  fontSize: 30)),
-                                          Text(e.name),
-                                        ])))
+                                DropdownMenuItem(value: e, child: Text(e.name)))
                             .toList(),
                       )
                     ]))
@@ -85,6 +75,9 @@ class _HomePageState extends State<HomePage> {
       ),
       body: ListView(
         children: [
+          const SizedBox(
+            height: 12,
+          ),
           const TrendingMovies(),
           SizedBox(height: Height * 0.03),
           const GenresMovies(),
@@ -94,7 +87,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12.0, vertical: 20),
-                child: Text('Movie',
+                child: Text(translation(context).movie,
                     style: TextStyle(
                       color: AppColor.snow,
                       fontSize: Width > 700 ? 20 : 16,
@@ -109,7 +102,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12.0, vertical: 20),
-                child: Text('Tv Show',
+                child: Text(translation(context).tvShow,
                     style: TextStyle(
                       color: AppColor.snow,
                       fontSize: Width > 700 ? 20 : 16,

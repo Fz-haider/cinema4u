@@ -23,9 +23,7 @@ class TrendingMovies extends StatelessWidget {
           builder: (context, snapShot) {
             var data = snapShot.data;
             if (snapShot.hasError) {
-              return Container(
-                child: Text('😢${snapShot.error}'),
-              );
+              return Center(child: Text('😢${snapShot.error}'));
             } else if (snapShot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else {

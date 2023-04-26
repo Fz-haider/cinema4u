@@ -7,7 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class OnboardingScreen extends StatelessWidget {
   OnboardingScreen({super.key});
 
-  List<Image> images = [
+  final List<Image> images = [
     const Image(image: AssetImage('assets/images/introduction1.png')),
     const Image(image: AssetImage('assets/images/introduction2.png')),
     const Image(image: AssetImage('assets/images/introduction3.png')),

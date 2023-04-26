@@ -2,5 +2,7 @@
     "next":"التالي",
     "done":"تم", 
     "language":"اللغة",
-    "changeLanguage":"تغير اللغة"
+    "changeLanguage":"تغير اللغة",
+    "movie":"أفلام",
+    "tvShow":"عروض تلفزيونية"
 }

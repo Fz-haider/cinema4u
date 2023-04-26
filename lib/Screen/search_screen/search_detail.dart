@@ -1,14 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cinema4u/models/movies/nowplaying_movies.dart';
 import 'package:cinema4u/api/api_connection.dart';
 import 'package:cinema4u/api/api_constant.dart';
+import 'package:cinema4u/models/multi_search/multi_search.dart';
 import 'package:cinema4u/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class NowPlayingTrailer extends StatelessWidget {
-  final NowPlayingMovies movie;
-  const NowPlayingTrailer({super.key, required this.movie});
+class SearchDetail extends StatelessWidget {
+  final MultiSearch movie;
+  const SearchDetail({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class NowPlayingTrailer extends StatelessWidget {
       body: ListView(
         children: [
           FutureBuilder(
-            future: movieTrailer(movie.id),
+            future: movieTrailer(movie.id!),
             builder: (context, snapShot) {
               var data = snapShot.data;
               if (snapShot.hasError) {
@@ -40,7 +42,7 @@ class NowPlayingTrailer extends StatelessWidget {
                           ),
                           child: CachedNetworkImage(
                             imageUrl: ApiConstant.TMDB_BASE_IMAGE_URL +
-                                movie.posterPath,
+                                movie.posterPath!,
                             height: Height * 0.55,
                             width: Width * 1,
                             fit: BoxFit.fill,
@@ -90,9 +92,10 @@ class NowPlayingTrailer extends StatelessWidget {
             },
           ),
           FutureBuilder(
-              future: movieDetail(movie.id),
+              future: movieDetail(movie.id!),
               builder: (context, snapShot) {
                 var data = snapShot.data;
+                print(movie.id);
                 if (snapShot.hasError) {
                   return Container(
                     child: Text('😢${snapShot.error}'),
@@ -222,6 +225,56 @@ class NowPlayingTrailer extends StatelessWidget {
                             ],
                           )
                         ],
+                      ),
+                      SizedBox(
+                        height: Height * 0.2,
+                        child: FutureBuilder(
+                            future: movieImages(movie.id!),
+                            builder: (context, snapShot) {
+                              var data = snapShot.data;
+                              if (snapShot.hasError) {
+                                return Center(
+                                    child: Text('😢${snapShot.error}'));
+                              } else if (snapShot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              } else {
+                                return CarouselSlider.builder(
+                                    options: CarouselOptions(
+                                      initialPage: 0,
+                                      autoPlay: true,
+                                      height: Height * 0.4,
+                                      pauseAutoPlayOnTouch: true,
+                                      autoPlayAnimationDuration:
+                                          const Duration(seconds: 3),
+                                      viewportFraction: Width > 700 ? 0.4 : 0.6,
+                                      aspectRatio: 16 / 9,
+                                      enlargeCenterPage: true,
+                                    ),
+                                    itemCount: data!.length,
+                                    itemBuilder: (context, index, realIndex) {
+                                      return ClipRRect(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10)),
+                                        child: CachedNetworkImage(
+                                          imageUrl: ApiConstant
+                                                  .TMDB_BASE_IMAGE_URL +
+                                              data[index].backdrops!.filePath,
+                                          height: Height * 0.4,
+                                          width: Width * 1,
+                                          fit: BoxFit.fill,
+                                          placeholder: (context, url) =>
+                                              const Center(
+                                                  child:
+                                                      CircularProgressIndicator()),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
+                                        ),
+                                      );
+                                    });
+                              }
+                            }),
                       ),
                     ],
                   );

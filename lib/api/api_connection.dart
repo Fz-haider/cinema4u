@@ -1,4 +1,6 @@
+import 'package:cinema4u/models/discover/discover_genres.dart';
 import 'package:cinema4u/models/movies/movie_detail.dart';
+import 'package:cinema4u/models/movies/movie_images.dart';
 import 'package:cinema4u/models/movies/movie_trailer.dart';
 import 'package:cinema4u/models/movies/movie_trailer.dart';
 import 'package:cinema4u/models/movies/trending_movies.dart';
@@ -107,11 +109,6 @@ Future<List<MultiSearch>> multiSearch(String query) async {
   }
 }
 
-Future<void> main(List<String> args) async {
-  var res = await movieDetail(594767);
-  print(res.releaseDate);
-}
-
 Future<MovieDetail> movieDetail(int id) async {
   var url = Uri.parse(
       '${ApiConstant.TMDB_API_BASE_URL}/movie/$id${ApiConstant.TMDB_API_KEY}&language=en-US');
@@ -122,6 +119,24 @@ Future<MovieDetail> movieDetail(int id) async {
     MovieDetail movieDetail = MovieDetail.fromJson(jsonData);
 
     return movieDetail;
+  } else {
+    throw Exception('no response');
+  }
+}
+
+Future<List<MovieImages>> movieImages(int id) async {
+  var url = Uri.parse(
+      '${ApiConstant.TMDB_API_BASE_URL}/movie/$id/images${ApiConstant.TMDB_API_KEY}');
+  var response = await http.get(url);
+  if (response.statusCode == 200) {
+    var jsonData = jsonDecode(response.body);
+    var data = await jsonData['backdrops'];
+    List<MovieImages> result = [];
+    for (var item in data) {
+      MovieImages movieImages = MovieImages.fromJson(item);
+      result.add(movieImages);
+    }
+    return result;
   } else {
     throw Exception('no response');
   }
@@ -171,6 +186,24 @@ Future<List<TvTrailer>> tvTrailer(int id) async {
     for (var item in data) {
       TvTrailer tvTrailer = TvTrailer.fromJson(item);
       result.add(tvTrailer);
+    }
+    return result;
+  } else {
+    throw Exception('no response');
+  }
+}
+
+Future<List<DiscoverByGenres>> discoverByGenres(int id) async {
+  var url = Uri.parse(
+      '${ApiConstant.TMDB_API_BASE_URL}/discover/movie${ApiConstant.TMDB_API_KEY}&with_genres=$id');
+  var response = await http.get(url);
+  if (response.statusCode == 200) {
+    var jsonData = jsonDecode(response.body);
+    var data = await jsonData['results'];
+    List<DiscoverByGenres> result = [];
+    for (var item in data) {
+      DiscoverByGenres movieTrailer = DiscoverByGenres.fromJson(item);
+      result.add(movieTrailer);
     }
     return result;
   } else {
