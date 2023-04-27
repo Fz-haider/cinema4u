@@ -6,8 +6,9 @@ import 'package:cinema4u/language_constants.dart';
 import 'package:cinema4u/main.dart';
 import 'package:cinema4u/Screen/trending_movies/trending_movies.dart';
 import 'package:cinema4u/theme/app_colors.dart';
+import 'package:cinema4u/theme/change_themebutton.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var activeColor = false;
   @override
   Widget build(BuildContext context) {
     double Height =
@@ -24,7 +26,6 @@ class _HomePageState extends State<HomePage> {
     double Width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: AppColor.vulcan,
       drawer: Drawer(
           backgroundColor: AppColor.vulcan.withOpacity(0.9),
           elevation: 0,
@@ -57,7 +58,14 @@ class _HomePageState extends State<HomePage> {
                                 DropdownMenuItem(value: e, child: Text(e.name)))
                             .toList(),
                       )
-                    ]))
+                    ])),
+            ListTile(
+              leading: Icon(
+                CupertinoIcons.moon_stars,
+                color: AppColor.snow,
+              ),
+              trailing: const ChangeThemeButtonWidget(),
+            )
           ])),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -89,7 +97,6 @@ class _HomePageState extends State<HomePage> {
                     const EdgeInsets.symmetric(horizontal: 12.0, vertical: 20),
                 child: Text(translation(context).movie,
                     style: TextStyle(
-                      color: AppColor.snow,
                       fontSize: Width > 700 ? 20 : 16,
                     )),
               ),
@@ -104,7 +111,6 @@ class _HomePageState extends State<HomePage> {
                     const EdgeInsets.symmetric(horizontal: 12.0, vertical: 20),
                 child: Text(translation(context).tvShow,
                     style: TextStyle(
-                      color: AppColor.snow,
                       fontSize: Width > 700 ? 20 : 16,
                     )),
               ),

@@ -27,7 +27,6 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     return Scaffold(
-      backgroundColor: AppColor.vulcan,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -42,15 +41,17 @@ class _SearchScreenState extends State<SearchScreen> {
               width: Width * 0.8,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
-                border: Border.all(color: AppColor.snow),
+                border: Border.all(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColor.snow
+                      : AppColor.vulcan,
+                ),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: TextField(
                 onSubmitted: (value) => setState(() {
                   query = value.toLowerCase();
                 }),
-                style: TextStyle(color: AppColor.snow),
-                cursorColor: AppColor.snow,
                 autofocus: true,
                 controller: controller,
                 decoration: InputDecoration(
@@ -62,19 +63,13 @@ class _SearchScreenState extends State<SearchScreen> {
                         query = controller.text.toLowerCase();
                       });
                     },
-                    color: AppColor.snow,
                   ),
                 ),
               ),
             ),
           ),
           query == ''
-              ? Container(
-                  child: Text(
-                    '',
-                    style: TextStyle(color: AppColor.snow),
-                  ),
-                )
+              ? const Text('')
               : FutureBuilder(
                   future: multiSearch(query),
                   builder: (context, snapShot) {
@@ -127,7 +122,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                             errorWidget:
                                                 (context, url, error) => Icon(
                                               Icons.error,
-                                              color: AppColor.snow,
                                             ),
                                           ),
                                         ),
@@ -154,9 +148,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                                       child: Text(
                                                         data[index].title ??
                                                             'No title',
-                                                        style: TextStyle(
-                                                          color: AppColor.snow,
-                                                        ),
                                                         overflow: TextOverflow
                                                             .ellipsis,
                                                       ),
@@ -181,10 +172,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                                                   .voteAverage!
                                                                   .round()
                                                                   .toString(),
-                                                          style: TextStyle(
-                                                            color:
-                                                                AppColor.snow,
-                                                          ),
                                                         ),
                                                       ],
                                                     )
@@ -194,12 +181,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                               child: Container(
                                                 height: Height * 0.1,
                                                 child: Text(
-                                                  data[index].overview ??
-                                                      'no overview',
-                                                  style: TextStyle(
-                                                    color: AppColor.snow,
-                                                  ),
-                                                ),
+                                                    data[index].overview ??
+                                                        'no overview'),
                                               ),
                                             ),
                                           ],
@@ -214,16 +197,10 @@ class _SearchScreenState extends State<SearchScreen> {
                     } else if (snapShot.hasData == false) {
                       return Container(
                         margin: const EdgeInsets.symmetric(vertical: 10),
-                        child: Text(
-                          'Not Available',
-                          style: TextStyle(color: AppColor.snow),
-                        ),
+                        child: Text('Not Available'),
                       );
                     } else {
-                      return Text(
-                        'there is no data',
-                        style: TextStyle(color: AppColor.snow),
-                      );
+                      return Text('there is no data');
                     }
                   })
         ],

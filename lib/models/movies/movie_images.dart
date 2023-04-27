@@ -12,10 +12,10 @@ class MovieImages {
 
   factory MovieImages.fromJson(Map<String, dynamic> json) {
     return MovieImages(
-      backdrops: Backdrops.fromJson(json['backdrops']),
+      backdrops: json['backdrops'],
       id: json['id'],
-      logos: Logos.fromJson(json['logos']),
-      posters: Posters.fromJson(json['posters']),
+      logos: json['logos'],
+      posters: json['posters'],
     );
   }
 }

@@ -71,7 +71,6 @@ class TrendingMovies extends StatelessWidget {
                             ),
                             child: Text(data[index].title,
                                 style: TextStyle(
-                                  color: Colors.white,
                                   fontSize: Width > 700 ? 16 : 12,
                                 )))
                       ]),

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cinema4u/models/movies/nowplaying_movies.dart';
 import 'package:cinema4u/api/api_connection.dart';
 import 'package:cinema4u/api/api_constant.dart';
@@ -16,7 +17,6 @@ class NowPlayingTrailer extends StatelessWidget {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     double Width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: AppColor.vulcan,
       body: ListView(
         children: [
           FutureBuilder(
@@ -69,13 +69,13 @@ class NowPlayingTrailer extends StatelessWidget {
                                 Text('$e');
                               }
                             },
-                            child: const Center(
+                            child: Center(
                               child: CircleAvatar(
                                 backgroundColor: Colors.black38,
                                 radius: 36,
                                 child: Icon(
                                   Icons.play_circle_outline,
-                                  color: Colors.yellow,
+                                  color: Colors.yellow.shade700,
                                   size: 65,
                                 ),
                               ),
@@ -108,8 +108,7 @@ class NowPlayingTrailer extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             data!.originalTitle.toUpperCase(),
-                            style:
-                                TextStyle(color: AppColor.snow, fontSize: 20),
+                            style: TextStyle(fontSize: 20),
                           )),
                       Padding(
                         padding: const EdgeInsets.only(
@@ -124,8 +123,7 @@ class NowPlayingTrailer extends StatelessWidget {
                                   : MainAxisAlignment.start,
                           children: [
                             Text(data.genres![0].name,
-                                style: TextStyle(
-                                  color: AppColor.snow,
+                                style: const TextStyle(
                                   fontSize: 14,
                                 )),
                             const SizedBox(
@@ -135,14 +133,13 @@ class NowPlayingTrailer extends StatelessWidget {
                               alignment: Alignment.centerLeft,
                               child: Row(
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.star,
-                                    color: Colors.yellow,
+                                    color: Colors.yellow.shade700,
                                     size: 16,
                                   ),
                                   Text(data.voteAverage.round().toString(),
                                       style: TextStyle(
-                                        color: AppColor.snow,
                                         fontSize: 14,
                                       )),
                                 ],
@@ -157,8 +154,7 @@ class NowPlayingTrailer extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Overview'.toUpperCase(),
-                            style:
-                                TextStyle(color: AppColor.snow, fontSize: 16),
+                            style: const TextStyle(fontSize: 16),
                           )),
                       Container(
                         padding: const EdgeInsets.only(
@@ -168,8 +164,7 @@ class NowPlayingTrailer extends StatelessWidget {
                                 ? TextDirection.ltr
                                 : TextDirection.ltr,
                             textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              color: AppColor.snow,
+                            style: const TextStyle(
                               fontSize: 14,
                             )),
                       ),
@@ -182,13 +177,12 @@ class NowPlayingTrailer extends StatelessWidget {
                           Column(
                             children: [
                               Text('Release Date'.toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.yellow,
+                                  style: TextStyle(
+                                    color: Colors.yellow.shade700,
                                     fontSize: 16,
                                   )),
                               Text(data.releaseDate.toString(),
-                                  style: TextStyle(
-                                    color: AppColor.snow,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                   )),
                             ],
@@ -196,13 +190,12 @@ class NowPlayingTrailer extends StatelessWidget {
                           Column(
                             children: [
                               Text('Run Time'.toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.yellow,
+                                  style: TextStyle(
+                                    color: Colors.yellow.shade700,
                                     fontSize: 16,
                                   )),
                               Text(data.runtime.toString(),
-                                  style: TextStyle(
-                                    color: AppColor.snow,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                   )),
                             ],
@@ -210,18 +203,72 @@ class NowPlayingTrailer extends StatelessWidget {
                           Column(
                             children: [
                               Text('Budget'.toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.yellow,
+                                  style: TextStyle(
+                                    color: Colors.yellow.shade700,
                                     fontSize: 16,
                                   )),
                               Text(data.budget.toString(),
-                                  style: TextStyle(
-                                    color: AppColor.snow,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                   )),
                             ],
                           )
                         ],
+                      ),
+                      SizedBox(
+                        height: Height * 0.2,
+                        child: FutureBuilder(
+                            future: movieImages(movie.id),
+                            builder: (context, snapShot) {
+                              var data = snapShot.data;
+                              if (snapShot.hasError) {
+                                return Center(
+                                    child: Text('😢${snapShot.error}'));
+                              } else if (snapShot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              } else {
+                                return CarouselSlider.builder(
+                                    options: CarouselOptions(
+                                      initialPage: 0,
+                                      autoPlay: true,
+                                      height: Height * 0.4,
+                                      pauseAutoPlayOnTouch: true,
+                                      autoPlayAnimationDuration:
+                                          const Duration(seconds: 3),
+                                      viewportFraction: Width > 700 ? 0.4 : 0.6,
+                                      aspectRatio: 16 / 9,
+                                      enlargeCenterPage: true,
+                                    ),
+                                    itemCount: data!.length,
+                                    itemBuilder: (context, index, realIndex) {
+                                      return ClipRRect(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10)),
+                                        child: CachedNetworkImage(
+                                          imageUrl: data[index].backdrops ==
+                                                  null
+                                              ? "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png"
+                                              : ApiConstant
+                                                      .TMDB_BASE_IMAGE_URL +
+                                                  data[index]
+                                                      .backdrops!
+                                                      .filePath,
+                                          height: Height * 0.4,
+                                          width: Width * 1,
+                                          fit: BoxFit.fill,
+                                          placeholder: (context, url) =>
+                                              const Center(
+                                                  child:
+                                                      CircularProgressIndicator()),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
+                                        ),
+                                      );
+                                    });
+                              }
+                            }),
                       ),
                     ],
                   );

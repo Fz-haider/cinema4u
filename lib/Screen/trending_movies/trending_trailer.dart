@@ -16,7 +16,6 @@ class TrendingTrailer extends StatelessWidget {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     double Width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: AppColor.vulcan,
       body: ListView(
         children: [
           FutureBuilder(
@@ -71,13 +70,13 @@ class TrendingTrailer extends StatelessWidget {
                                 Text('$e');
                               }
                             },
-                            child: const Center(
+                            child: Center(
                               child: CircleAvatar(
                                 backgroundColor: Colors.black38,
                                 radius: 36,
                                 child: Icon(
                                   Icons.play_circle_outline,
-                                  color: Colors.yellow,
+                                  color: Colors.yellow.shade700,
                                   size: 65,
                                 ),
                               ),
@@ -111,7 +110,6 @@ class TrendingTrailer extends StatelessWidget {
                           child: Text(
                             data!.originalTitle.toUpperCase(),
                             style: TextStyle(
-                              color: AppColor.snow,
                               fontSize: 20,
                             ),
                             textDirection: TextDirection == Locale('en')
@@ -132,7 +130,6 @@ class TrendingTrailer extends StatelessWidget {
                           children: [
                             Text(data.genres![0].name,
                                 style: TextStyle(
-                                  color: AppColor.snow,
                                   fontSize: 14,
                                 )),
                             const SizedBox(
@@ -140,14 +137,13 @@ class TrendingTrailer extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons.star,
-                                  color: Colors.yellow,
+                                  color: Colors.yellow.shade700,
                                   size: 16,
                                 ),
                                 Text(data.voteAverage.round().toString(),
                                     style: TextStyle(
-                                      color: AppColor.snow,
                                       fontSize: 14,
                                     )),
                               ],
@@ -161,8 +157,7 @@ class TrendingTrailer extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Overview'.toUpperCase(),
-                            style:
-                                TextStyle(color: AppColor.snow, fontSize: 16),
+                            style: TextStyle(fontSize: 16),
                           )),
                       Container(
                         padding: const EdgeInsets.only(
@@ -173,7 +168,6 @@ class TrendingTrailer extends StatelessWidget {
                                 ? TextDirection.ltr
                                 : TextDirection.ltr,
                             style: TextStyle(
-                              color: AppColor.snow,
                               fontSize: 14,
                             )),
                       ),
@@ -186,13 +180,12 @@ class TrendingTrailer extends StatelessWidget {
                           Column(
                             children: [
                               Text('Release Date'.toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.yellow,
+                                  style: TextStyle(
+                                    color: Colors.yellow.shade700,
                                     fontSize: 14,
                                   )),
                               Text(data.releaseDate.toString(),
-                                  style: TextStyle(
-                                    color: AppColor.snow,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                   )),
                             ],
@@ -200,13 +193,12 @@ class TrendingTrailer extends StatelessWidget {
                           Column(
                             children: [
                               Text('Run Time'.toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.yellow,
+                                  style: TextStyle(
+                                    color: Colors.yellow.shade700,
                                     fontSize: 14,
                                   )),
                               Text(data.runtime.toString(),
-                                  style: TextStyle(
-                                    color: AppColor.snow,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                   )),
                             ],
@@ -214,13 +206,12 @@ class TrendingTrailer extends StatelessWidget {
                           Column(
                             children: [
                               Text('Budget'.toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.yellow,
+                                  style: TextStyle(
+                                    color: Colors.yellow.shade700,
                                     fontSize: 14,
                                   )),
                               Text(data.budget.toString(),
-                                  style: TextStyle(
-                                    color: AppColor.snow,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                   )),
                             ],

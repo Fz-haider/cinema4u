@@ -16,7 +16,6 @@ class TvTrailer extends StatelessWidget {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     double Width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: AppColor.vulcan,
       body: ListView(
         children: [
           FutureBuilder(
@@ -77,13 +76,13 @@ class TvTrailer extends StatelessWidget {
                                   Text('$e');
                                 }
                               },
-                              child: const Center(
+                              child: Center(
                                 child: CircleAvatar(
                                   backgroundColor: Colors.black38,
                                   radius: 36,
                                   child: Icon(
                                     Icons.play_circle_outline,
-                                    color: Colors.yellow,
+                                    color: Colors.yellow.shade700,
                                     size: 65,
                                   ),
                                 ),
@@ -115,8 +114,7 @@ class TvTrailer extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             data!.originalName.toUpperCase(),
-                            style:
-                                TextStyle(color: AppColor.snow, fontSize: 20),
+                            style: TextStyle(fontSize: 20),
                           )),
                       Padding(
                         padding:
@@ -132,7 +130,6 @@ class TvTrailer extends StatelessWidget {
                           children: [
                             Text(data.type,
                                 style: TextStyle(
-                                  color: AppColor.snow,
                                   fontSize: 14,
                                 )),
                             const SizedBox(
@@ -140,14 +137,13 @@ class TvTrailer extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons.star,
-                                  color: Colors.yellow,
+                                  color: Colors.yellow.shade700,
                                   size: 16,
                                 ),
                                 Text(data.voteAverage.round().toString(),
                                     style: TextStyle(
-                                      color: AppColor.snow,
                                       fontSize: 14,
                                     )),
                               ],
@@ -161,20 +157,17 @@ class TvTrailer extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Overview'.toUpperCase(),
-                            style:
-                                TextStyle(color: AppColor.snow, fontSize: 16),
+                            style: TextStyle(fontSize: 16),
                           )),
                       Container(
                         padding: const EdgeInsets.only(
-                          left: 12,
-                        ),
+                            left: 12, right: 12, bottom: 10),
                         child: Text(data.overview,
                             textDirection: TextDirection == const Locale('en')
                                 ? TextDirection.ltr
                                 : TextDirection.ltr,
                             textAlign: TextAlign.justify,
                             style: TextStyle(
-                              color: AppColor.snow,
                               fontSize: 14,
                             )),
                       ),
@@ -187,13 +180,12 @@ class TvTrailer extends StatelessWidget {
                           Column(
                             children: [
                               Text('Run Time'.toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.yellow,
+                                  style: TextStyle(
+                                    color: Colors.yellow.shade700,
                                     fontSize: 16,
                                   )),
                               Text('${data.episodeRunTime} hrs',
                                   style: TextStyle(
-                                    color: AppColor.snow,
                                     fontSize: 14,
                                   )),
                             ],
@@ -201,13 +193,12 @@ class TvTrailer extends StatelessWidget {
                           Column(
                             children: [
                               Text('N.Seasons'.toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.yellow,
+                                  style: TextStyle(
+                                    color: Colors.yellow.shade700,
                                     fontSize: 16,
                                   )),
                               Text(data.numberOfSeasons.toString(),
                                   style: TextStyle(
-                                    color: AppColor.snow,
                                     fontSize: 14,
                                   )),
                             ],
@@ -215,13 +206,12 @@ class TvTrailer extends StatelessWidget {
                           Column(
                             children: [
                               Text('N.Episodes'.toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.yellow,
+                                  style: TextStyle(
+                                    color: Colors.yellow.shade700,
                                     fontSize: 16,
                                   )),
                               Text(data.numberOfEpisodes.toString(),
                                   style: TextStyle(
-                                    color: AppColor.snow,
                                     fontSize: 14,
                                   )),
                             ],

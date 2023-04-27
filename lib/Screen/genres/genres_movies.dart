@@ -49,9 +49,17 @@ class _GenresMoviesState extends State<GenresMovies> {
                       itemBuilder: (context, index) {
                         return Container(
                           decoration: BoxDecoration(
-                            color: AppColor.vulcan,
-                            border:
-                                Border.all(width: 1.5, color: AppColor.snow),
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? AppColor.snow
+                                    : AppColor.vulcan,
+                            border: Border.all(
+                              width: 1.5,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? AppColor.snow
+                                  : AppColor.vulcan,
+                            ),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(50)),
                           ),
@@ -66,8 +74,7 @@ class _GenresMoviesState extends State<GenresMovies> {
                             },
                             child: Text(
                               data[index].name,
-                              style: TextStyle(
-                                color: AppColor.snow,
+                              style: const TextStyle(
                                 fontSize: 14,
                               ),
                             ),

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cinema4u/models/movies/movie_images.dart';
 import 'package:cinema4u/models/movies/nowplaying_movies.dart';
 import 'package:cinema4u/api/api_connection.dart';
 import 'package:cinema4u/api/api_constant.dart';
@@ -18,7 +19,6 @@ class SearchDetail extends StatelessWidget {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     double Width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: AppColor.vulcan,
       body: ListView(
         children: [
           FutureBuilder(
@@ -71,13 +71,13 @@ class SearchDetail extends StatelessWidget {
                                 Text('$e');
                               }
                             },
-                            child: const Center(
+                            child: Center(
                               child: CircleAvatar(
                                 backgroundColor: Colors.black38,
                                 radius: 36,
                                 child: Icon(
                                   Icons.play_circle_outline,
-                                  color: Colors.yellow,
+                                  color: Colors.yellow.shade700,
                                   size: 65,
                                 ),
                               ),
@@ -111,8 +111,7 @@ class SearchDetail extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             data!.originalTitle.toUpperCase(),
-                            style:
-                                TextStyle(color: AppColor.snow, fontSize: 20),
+                            style: TextStyle(fontSize: 20),
                           )),
                       Padding(
                         padding: const EdgeInsets.only(
@@ -128,7 +127,6 @@ class SearchDetail extends StatelessWidget {
                           children: [
                             Text(data.genres![0].name,
                                 style: TextStyle(
-                                  color: AppColor.snow,
                                   fontSize: 14,
                                 )),
                             const SizedBox(
@@ -138,14 +136,13 @@ class SearchDetail extends StatelessWidget {
                               alignment: Alignment.centerLeft,
                               child: Row(
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.star,
-                                    color: Colors.yellow,
+                                    color: Colors.yellow.shade700,
                                     size: 16,
                                   ),
                                   Text(data.voteAverage.round().toString(),
-                                      style: TextStyle(
-                                        color: AppColor.snow,
+                                      style: const TextStyle(
                                         fontSize: 14,
                                       )),
                                 ],
@@ -160,8 +157,7 @@ class SearchDetail extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Overview'.toUpperCase(),
-                            style:
-                                TextStyle(color: AppColor.snow, fontSize: 16),
+                            style: const TextStyle(fontSize: 16),
                           )),
                       Container(
                         padding: const EdgeInsets.only(
@@ -171,8 +167,7 @@ class SearchDetail extends StatelessWidget {
                                 ? TextDirection.ltr
                                 : TextDirection.ltr,
                             textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              color: AppColor.snow,
+                            style: const TextStyle(
                               fontSize: 14,
                             )),
                       ),
@@ -185,13 +180,12 @@ class SearchDetail extends StatelessWidget {
                           Column(
                             children: [
                               Text('Release Date'.toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.yellow,
+                                  style: TextStyle(
+                                    color: Colors.yellow.shade700,
                                     fontSize: 16,
                                   )),
                               Text(data.releaseDate.toString(),
-                                  style: TextStyle(
-                                    color: AppColor.snow,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                   )),
                             ],
@@ -199,13 +193,12 @@ class SearchDetail extends StatelessWidget {
                           Column(
                             children: [
                               Text('Run Time'.toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.yellow,
+                                  style: TextStyle(
+                                    color: Colors.yellow.shade700,
                                     fontSize: 16,
                                   )),
                               Text(data.runtime.toString(),
-                                  style: TextStyle(
-                                    color: AppColor.snow,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                   )),
                             ],
@@ -213,13 +206,12 @@ class SearchDetail extends StatelessWidget {
                           Column(
                             children: [
                               Text('Budget'.toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.yellow,
+                                  style: TextStyle(
+                                    color: Colors.yellow.shade700,
                                     fontSize: 16,
                                   )),
                               Text(data.budget.toString(),
-                                  style: TextStyle(
-                                    color: AppColor.snow,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                   )),
                             ],
@@ -258,9 +250,15 @@ class SearchDetail extends StatelessWidget {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(10)),
                                         child: CachedNetworkImage(
-                                          imageUrl: ApiConstant
-                                                  .TMDB_BASE_IMAGE_URL +
-                                              data[index].backdrops!.filePath,
+                                          imageUrl: data[index].backdrops ==
+                                                  null
+                                              ? "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png"
+                                              : ApiConstant
+                                                      .TMDB_BASE_IMAGE_URL +
+                                                  data[index]
+                                                      .posters!
+                                                      .filePath
+                                                      .toString(),
                                           height: Height * 0.4,
                                           width: Width * 1,
                                           fit: BoxFit.fill,

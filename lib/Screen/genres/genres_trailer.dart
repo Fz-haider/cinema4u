@@ -16,7 +16,6 @@ class GenresTrailer extends StatelessWidget {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     double Width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: AppColor.vulcan,
       body: ListView(
         children: [
           FutureBuilder(
@@ -108,8 +107,7 @@ class GenresTrailer extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             data!.originalTitle.toUpperCase(),
-                            style:
-                                TextStyle(color: AppColor.snow, fontSize: 20),
+                            style: TextStyle(fontSize: 20),
                           )),
                       Padding(
                         padding: const EdgeInsets.only(
@@ -125,7 +123,6 @@ class GenresTrailer extends StatelessWidget {
                           children: [
                             Text(data.genres![0].name,
                                 style: TextStyle(
-                                  color: AppColor.snow,
                                   fontSize: 14,
                                 )),
                             const SizedBox(
@@ -135,14 +132,13 @@ class GenresTrailer extends StatelessWidget {
                               alignment: Alignment.centerLeft,
                               child: Row(
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.star,
-                                    color: Colors.yellow,
+                                    color: Colors.yellow.shade700,
                                     size: 16,
                                   ),
                                   Text(data.voteAverage.round().toString(),
-                                      style: TextStyle(
-                                        color: AppColor.snow,
+                                      style: const TextStyle(
                                         fontSize: 14,
                                       )),
                                 ],
@@ -157,8 +153,7 @@ class GenresTrailer extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Overview'.toUpperCase(),
-                            style:
-                                TextStyle(color: AppColor.snow, fontSize: 16),
+                            style: const TextStyle(fontSize: 16),
                           )),
                       Container(
                         padding: const EdgeInsets.only(
@@ -168,8 +163,7 @@ class GenresTrailer extends StatelessWidget {
                                 ? TextDirection.ltr
                                 : TextDirection.ltr,
                             textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              color: AppColor.snow,
+                            style: const TextStyle(
                               fontSize: 14,
                             )),
                       ),
@@ -182,13 +176,12 @@ class GenresTrailer extends StatelessWidget {
                           Column(
                             children: [
                               Text('Release Date'.toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.yellow,
+                                  style: TextStyle(
+                                    color: Colors.yellow.shade700,
                                     fontSize: 16,
                                   )),
                               Text(data.releaseDate.toString(),
-                                  style: TextStyle(
-                                    color: AppColor.snow,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                   )),
                             ],
@@ -196,13 +189,12 @@ class GenresTrailer extends StatelessWidget {
                           Column(
                             children: [
                               Text('Run Time'.toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.yellow,
+                                  style: TextStyle(
+                                    color: Colors.yellow.shade700,
                                     fontSize: 16,
                                   )),
                               Text(data.runtime.toString(),
-                                  style: TextStyle(
-                                    color: AppColor.snow,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                   )),
                             ],
@@ -210,13 +202,12 @@ class GenresTrailer extends StatelessWidget {
                           Column(
                             children: [
                               Text('Budget'.toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.yellow,
+                                  style: TextStyle(
+                                    color: Colors.yellow.shade700,
                                     fontSize: 16,
                                   )),
                               Text(data.budget.toString(),
-                                  style: TextStyle(
-                                    color: AppColor.snow,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                   )),
                             ],
