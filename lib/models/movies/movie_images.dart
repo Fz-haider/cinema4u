@@ -1,8 +1,8 @@
 class MovieImages {
-  final Backdrops? backdrops;
+  final List<Backdrops>? backdrops;
   final int? id;
-  final Logos? logos;
-  final Posters? posters;
+  final List<Logos>? logos;
+  final List<Posters>? posters;
 
   MovieImages(
       {required this.backdrops,
@@ -12,10 +12,13 @@ class MovieImages {
 
   factory MovieImages.fromJson(Map<String, dynamic> json) {
     return MovieImages(
-      backdrops: json['backdrops'],
+      backdrops: List<Backdrops>.from(List<dynamic>.from(json['backdrops'])
+          .map((backdrop) => Backdrops.fromJson(backdrop))),
       id: json['id'],
-      logos: json['logos'],
-      posters: json['posters'],
+      logos: List<Logos>.from(List<dynamic>.from(json['logos'])
+          .map((logo) => Logos.fromJson(logo))),
+      posters: List<Posters>.from(List<dynamic>.from(json['posters'])
+          .map((poster) => Posters.fromJson(poster))),
     );
   }
 }
@@ -23,17 +26,17 @@ class MovieImages {
 class Backdrops {
   final double aspectRatio;
   final int height;
-  final String iso6391;
-  final String filePath;
+  final String? iso6391;
+  final String? filePath;
   final double voteAverage;
-  final int voteCount;
-  final int width;
+  final double voteCount;
+  final double width;
 
   Backdrops(
       {required this.aspectRatio,
       required this.height,
-      required this.iso6391,
-      required this.filePath,
+      this.iso6391,
+      this.filePath,
       required this.voteAverage,
       required this.voteCount,
       required this.width});
@@ -44,9 +47,9 @@ class Backdrops {
       height: json['height'],
       iso6391: json['iso_639_1'],
       filePath: json['file_path'],
-      voteAverage: json['vote_average'],
-      voteCount: json['vote_count'],
-      width: json['width'],
+      voteAverage: json['vote_average'].toDouble(),
+      voteCount: json['vote_count'].toInt(),
+      width: json['width'].toInt(),
     );
   }
 }
@@ -54,11 +57,11 @@ class Backdrops {
 class Logos {
   final double aspectRatio;
   final int height;
-  final String iso6391;
+  final String? iso6391;
   final String filePath;
-  final int voteAverage;
-  final int voteCount;
-  final int width;
+  final double voteAverage;
+  final double voteCount;
+  final double width;
 
   Logos(
       {required this.aspectRatio,
@@ -75,9 +78,9 @@ class Logos {
       height: json['height'],
       iso6391: json['iso_639_1'],
       filePath: json['file_path'],
-      voteAverage: json['vote_average'],
-      voteCount: json['vote_count'],
-      width: json['width'],
+      voteAverage: json['vote_average'].toDouble(),
+      voteCount: json['vote_count'].toDouble(),
+      width: json['width'].toDouble(),
     );
   }
 }
@@ -85,16 +88,16 @@ class Logos {
 class Posters {
   final double aspectRatio;
   final int height;
-  final String iso6391;
+  final String? iso6391;
   final String filePath;
   final double voteAverage;
-  final int voteCount;
-  final int width;
+  final double voteCount;
+  final double width;
 
   Posters(
       {required this.aspectRatio,
       required this.height,
-      required this.iso6391,
+      this.iso6391,
       required this.filePath,
       required this.voteAverage,
       required this.voteCount,
@@ -106,9 +109,9 @@ class Posters {
       height: json['height'],
       iso6391: json['iso_639_1'],
       filePath: json['file_path'],
-      voteAverage: json['vote_average'],
-      voteCount: json['vote_count'],
-      width: json['width'],
+      voteAverage: json['vote_average'].toDouble(),
+      voteCount: json['vote_count'].toDouble(),
+      width: json['width'].toDouble(),
     );
   }
 }

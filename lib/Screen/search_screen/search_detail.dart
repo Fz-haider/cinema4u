@@ -218,12 +218,19 @@ class SearchDetail extends StatelessWidget {
                           )
                         ],
                       ),
+                      Container(
+                          padding: const EdgeInsets.only(
+                              top: 17, left: 12, right: 12, bottom: 10),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Screenshot'.toUpperCase(),
+                            style: const TextStyle(fontSize: 16),
+                          )),
                       SizedBox(
                         height: Height * 0.2,
                         child: FutureBuilder(
                             future: movieImages(movie.id!),
                             builder: (context, snapShot) {
-                              var data = snapShot.data;
                               if (snapShot.hasError) {
                                 return Center(
                                     child: Text('😢${snapShot.error}'));
@@ -232,6 +239,7 @@ class SearchDetail extends StatelessWidget {
                                 return const Center(
                                     child: CircularProgressIndicator());
                               } else {
+                                var data = snapShot.data!;
                                 return CarouselSlider.builder(
                                     options: CarouselOptions(
                                       initialPage: 0,
@@ -244,21 +252,18 @@ class SearchDetail extends StatelessWidget {
                                       aspectRatio: 16 / 9,
                                       enlargeCenterPage: true,
                                     ),
-                                    itemCount: data!.length,
+                                    itemCount: data.backdrops!.length,
                                     itemBuilder: (context, index, realIndex) {
+                                      var bd = data.backdrops![index];
                                       return ClipRRect(
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(10)),
                                         child: CachedNetworkImage(
-                                          imageUrl: data[index].backdrops ==
-                                                  null
+                                          imageUrl: bd == null
                                               ? "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png"
                                               : ApiConstant
                                                       .TMDB_BASE_IMAGE_URL +
-                                                  data[index]
-                                                      .posters!
-                                                      .filePath
-                                                      .toString(),
+                                                  bd.filePath!,
                                           height: Height * 0.4,
                                           width: Width * 1,
                                           fit: BoxFit.fill,

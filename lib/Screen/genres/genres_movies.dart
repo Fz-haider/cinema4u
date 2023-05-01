@@ -73,7 +73,7 @@ class _GenresMoviesState extends State<GenresMovies> {
                               });
                             },
                             child: Text(
-                              data[index].name,
+                              data[index].name!,
                               style: const TextStyle(
                                 fontSize: 14,
                               ),

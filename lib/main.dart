@@ -1,5 +1,6 @@
 import 'package:cinema4u/Screen/home_screen.dart';
 import 'package:cinema4u/Screen/search_screen/search_screen.dart';
+import 'package:cinema4u/api/api_constant.dart';
 import 'package:cinema4u/language_constants.dart';
 import 'package:cinema4u/theme/my_themes.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,18 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+bool onBoardingScreen = true;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final prefs = await SharedPreferences.getInstance();
+  if (prefs.containsKey(PREFS_ONBOARDING_SCREEN)) {
+    onBoardingScreen = false;
+  } else {
+    prefs.setBool(PREFS_ONBOARDING_SCREEN, true);
+  }
+
   runApp(const MyApp());
 }
 
@@ -65,7 +77,7 @@ class _MyAppState extends State<MyApp> {
           ],
           supportedLocales: const [Locale('ar'), Locale('en'), Locale('ku')],
           locale: _locale,
-          home: OnboardingScreen(),
+          home: onBoardingScreen ? const HomePage() : OnboardingScreen(),
           routes: {
             'HomePage': (context) => const HomePage(),
             'SearchScreen': (context) => const SearchScreen(),

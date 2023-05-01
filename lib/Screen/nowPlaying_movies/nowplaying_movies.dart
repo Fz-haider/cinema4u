@@ -41,12 +41,14 @@ class NowPlayingMovies extends StatelessWidget {
                 itemBuilder: (context, index, realIndex) {
                   var movie = data[index];
                   return GestureDetector(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            NowPlayingTrailer(movie: movie),
-                      ),
-                    ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              NowPlayingTrailer(movie: movie),
+                        ),
+                      );
+                    },
                     child: Container(
                       margin: EdgeInsets.only(right: Width > 600 ? 1 : 10),
                       child: ClipRRect(

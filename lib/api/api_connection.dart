@@ -124,19 +124,13 @@ Future<MovieDetail> movieDetail(int id) async {
   }
 }
 
-Future<List<MovieImages>> movieImages(int id) async {
+Future<MovieImages> movieImages(int id) async {
   var url = Uri.parse(
       '${ApiConstant.TMDB_API_BASE_URL}/movie/$id/images${ApiConstant.TMDB_API_KEY}');
   var response = await http.get(url);
   if (response.statusCode == 200) {
     var jsonData = jsonDecode(response.body);
-    var data = await jsonData['backdrops'];
-    List<MovieImages> result = [];
-    for (var item in data) {
-      MovieImages movieImages = MovieImages.fromJson(item);
-      result.add(movieImages);
-    }
-    return result;
+    return MovieImages.fromJson(jsonData);
   } else {
     throw Exception('no response');
   }

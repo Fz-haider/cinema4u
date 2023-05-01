@@ -1,6 +1,6 @@
 class GenresMovies {
   final int id;
-  final String name;
+  final String? name;
   bool active;
 
   GenresMovies({required this.id, required this.name, this.active = false});
