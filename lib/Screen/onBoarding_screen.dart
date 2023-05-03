@@ -12,16 +12,16 @@ class OnboardingScreen extends StatelessWidget {
     const Image(image: AssetImage('assets/images/introduction2.png')),
     const Image(image: AssetImage('assets/images/introduction3.png')),
   ];
-  var texts = [
-    "Search for your Movie",
-    'Get Every details on it',
-    'Enjoy with us',
-  ];
 
   var animationDuration = 500; // in millis
 
   @override
   Widget build(BuildContext context) {
+    var texts = [
+      translation(context).searchForYourMovie,
+      translation(context).getEveryDetailsOnIt,
+      translation(context).enjoyWithUs,
+    ];
     //Responsiveness
     double Height =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
