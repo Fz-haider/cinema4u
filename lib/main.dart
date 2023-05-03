@@ -14,14 +14,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-bool onBoardingScreen = true;
+bool onBoardingScreen = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final prefs = await SharedPreferences.getInstance();
   if (prefs.containsKey(PREFS_ONBOARDING_SCREEN)) {
-    onBoardingScreen = false;
+    onBoardingScreen = true;
   } else {
     prefs.setBool(PREFS_ONBOARDING_SCREEN, true);
   }

@@ -48,8 +48,8 @@ class Backdrops {
       iso6391: json['iso_639_1'],
       filePath: json['file_path'],
       voteAverage: json['vote_average'].toDouble(),
-      voteCount: json['vote_count'].toInt(),
-      width: json['width'].toInt(),
+      voteCount: json['vote_count'].toDouble(),
+      width: json['width'].toDouble(),
     );
   }
 }
